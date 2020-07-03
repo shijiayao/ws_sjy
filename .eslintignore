@@ -1,0 +1,10 @@
+# eslint 不检查的文件
+node_modules
+
+vendor
+dist
+build
+**/assets/*
+!/Project/lieqinews_pc/www-root/assets/*
+
+*.min.*

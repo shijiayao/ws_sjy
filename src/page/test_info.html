@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TEST-INFO</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      #app {
+        padding: 15px;
+      }
+
+      .info-item {
+        margin: 5px 0;
+        border: 1px solid #ccc;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.js"></script>
+
+  </head>
+
+  <body>
+
+    <div id="app">
+      <ul class="info-list">
+        <li class="info-item" v-for="(item, index) in infoArr">{{ item.name }} - {{ item.value }}</li>
+      </ul>
+    </div>
+
+    <script>
+      const data = {
+        infoArr: []
+      };
+
+      const app = new Vue({
+        el: '#app',
+        data,
+        beforeCreate() {},
+        created() {
+          this.infoArr.push({ name: 'userAgent', value: String(window.navigator.userAgent) });
+          this.infoArr.push({ name: 'appVersion', value: String(window.navigator.appVersion) });
+          this.infoArr.push({ name: 'pageSize', value: `${window.screen.width}*${window.screen.height}`});
+        },
+        methods: {}
+      });
+    </script>
+  </body>
+
+</html>
