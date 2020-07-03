@@ -4,7 +4,6 @@ node_modules
 vendor
 dist
 build
-**/assets/*
-!/Project/lieqinews_pc/www-root/assets/*
+assets
 
 *.min.*
