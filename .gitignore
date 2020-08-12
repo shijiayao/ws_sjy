@@ -64,6 +64,8 @@ typings/
 # nuxt.js build output
 .nuxt
 
+package-lock.json
+
 log
 logs
 node_server/web_root/back_end/uploads
