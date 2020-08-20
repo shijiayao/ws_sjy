@@ -187,37 +187,8 @@ class ServerApp {
     // extended:false 表示使用querystring库来解析字符串
     _this.app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
 
-    // 上传文件使用 multer 中间件，注意: Multer 不会处理任何非 multipart/form-data 类型的表单数据。
-    let storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, './uploads/');
-      },
-      filename: function (req, file, cb) {
-        let timeNum = +new Date();
-        let fileType = mime.getExtension(file.mimetype);
-
-        cb(null, `${file.fieldname}-${timeNum}.${fileType}`);
-      }
-    });
-
-    let upload = multer({ storage: storage });
-
-    // name 为前端上传文件时使用的 name 属性，是 node 定义的用于接受文件数据的接口参数
-    let cpUpload = upload.fields([{ name: 'wenjian', maxCount: 10 }]);
-
-    // 上传文件处理
-    _this.app.post('/upload', cpUpload, (req, res, next) => {
-      res.json({ statusCode: 200, result: true });
-    });
-
     // post 请求处理
     _this.app.post('/', (req, res) => {
-      // console.log(req.body, 'D:/CloudRoot/SyncFolder/Web/Code/node_server/web_root/back_end/PostData');
-
-      let randomNum = Math.random();
-      let timestamp = new Date().getTime();
-      let fileName = `D:/CloudRoot/SyncFolder/Web/Code/node_server/web_root/back_end/post_data/post_${timestamp}_${randomNum.toString(36).substring(2)}.json`;
-
       let data = req.body;
 
       for (const key in data) {
@@ -226,18 +197,7 @@ class ServerApp {
         } catch (error) {}
       }
 
-      fs.writeFile(fileName, JSON.stringify(data), function (err) {
-        if (err) {
-          console.log('写入文件失败', err);
-
-          res.json({ statusCode: 200, result: false });
-
-          return;
-        }
-        console.log('写入文件成功');
-
-        res.json({ statusCode: 200, result: true });
-      });
+      res.json({ statusCode: 200, result: true, info: 'May the force be with you!' });
     });
   }
 

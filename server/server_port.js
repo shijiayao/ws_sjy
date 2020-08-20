@@ -1,10 +1,10 @@
 const { ServerApp } = require('./config/server_config/server_config.js');
 
 let params = {
-  name: '9527',
+  name: '9763',
   url: '127.0.0.1',
   rootPath: '/',
-  port: 9527,
+  port: 9763,
   static: {
     // '实际响应的目录或文件': ['页面请求的目录或文件数组'],
     'root/node_server/web_root/front_end/favicon.ico': ['/favicon.ico'],

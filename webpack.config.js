@@ -10,7 +10,6 @@ module.exports = {
 
   entry: {
     index: path.resolve(__dirname, 'src/javascript/index/index.js')
-    // jquery: 'jq'
   },
 
   plugins: [
