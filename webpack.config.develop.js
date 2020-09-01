@@ -1,9 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const environment = 'production'; // 环境变量
+const environment = 'development'; // 环境变量
 const SC_Path = path.resolve(__dirname, 'src'); // 源代码目录路径
-const outPath = 'dist'; // 输出目录 / 构建目录
+const outPath = 'develop'; // 输出目录 / 构建目录
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 将单个文件或整个目录（已存在）复制到构建目录。

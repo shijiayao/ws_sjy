@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>index</title>
+  <script src="/<%= htmlWebpackPlugin.options.projectPath %>/javascript/vendor/flexible.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul class="top-img-box clearfix">
+      <li class="col-5"><img v-bind:src="top_img" alt=""></li>
+      <li class="col-5"><img v-bind:src="top_img" alt=""></li>
+      <li class="col-5"><img v-bind:src="top_img" alt=""></li>
+      <li class="col-5"><img v-bind:src="top_img" alt=""></li>
+      <li class="col-5"><img v-bind:src="top_img" alt=""></li>
+    </ul>
+
+    <!-- 导航列表 -->
+    <nav>
+      <ul class="list-group">
+        <li class="list-group-item" v-for="(item, index) in nav_list_arr"><a v-bind:href="item.url">{{ item.name }}</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <img src="<%= require('../../assets/images/完整原型链.jpg').default %>" alt="">
+
+  <!-- 插件 -->
+  <script src="/<%= htmlWebpackPlugin.options.projectPath %>/javascript/vendor/live2d_widget/L2Dwidget.min.js"></script>
+</body>
+
+</html>
