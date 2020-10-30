@@ -24,4 +24,4 @@ const app = new Vue({
 
 console.log(app);
 
-L2Dwidget.init();
+// L2Dwidget.init();

@@ -4,10 +4,11 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 将单个文件或整个目录（已存在）复制到构建目录。
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 分离 css 文件，通过 link 标签引入
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 一款分析 bundle 内容的插件及 CLI 工具，以便捷的、交互式、可缩放的树状图形式展现给用户。
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 清理输出目录下的文件
+const middleware = require('webpack-dev-middleware');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 一款分析 bundle 内容的插件及 CLI 工具，以便捷的、交互式、可缩放的树状图形式展现给用户。
 
-module.exports = (env = {}, argv) => {
+module.exports = (env = {}, argv = {}) => {
   console.log(env.ENV, env.MODE, env);
 
   const environment = env.ENV || 'development'; // 环境变量
@@ -60,7 +61,7 @@ module.exports = (env = {}, argv) => {
           use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { sourceMap: true } }, { loader: 'sass-loader', options: { implementation: require('sass'), sourceMap: true } }]
         },
         { test: /\.(eot|svg|ttf|woff|woff2|otf)$/, use: 'url-loader' },
-        { test: /\.(jpg|jpeg|png|gif)$/, use: { loader: 'url-loader', options: { limit: 1024 * 1, name: `/assets/images/[hash].[ext]` } } }
+        { test: /\.(jpg|jpeg|png|gif)$/, use: { loader: 'url-loader', options: { limit: 1024 * 1, name: `assets/images/[hash].[ext]` } } }
       ]
     },
 
@@ -84,7 +85,7 @@ module.exports = (env = {}, argv) => {
     output: {
       filename: `javascript/[name].[hash].js`, // 输出资源根目录的 路径 + 文件名
       path: path.resolve(__dirname, outPath), // 输出资源根目录的位置
-      publicPath: `/${outPath}`, // 在 HTML 文件中的资源目录路径
+      publicPath: `/`, // 在 HTML 文件中的资源目录路径
       chunkFilename: `javascript/common/[name].[hash].js` // 拆分的 Chunk 路径 + 文件名
     }
   };
@@ -103,7 +104,13 @@ module.exports = (env = {}, argv) => {
     webpackConfigObject.devServer = {
       contentBase: outPath,
       compress: true,
-      port: 9763
+      port: 9763,
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\/$/, to: '/page/index.html' },
+          { from: /^\/page_info.html/, to: '/page/page_info.html' }
+        ]
+      }
     };
   }
 
@@ -117,7 +124,7 @@ module.exports = (env = {}, argv) => {
       filename: `page/${page}.html`,
       hash: true, // 页面上资源文件尾部带 hash
       favicon: `src/favicon.ico`,
-      projectPath: `/${outPath}`, // 传递到 HTML 文件目录变量，用以替换那些不参与打包的文件路径
+      projectPath: ``, // 传递到 HTML 文件目录变量，用以替换那些不参与打包的文件路径
       scriptLoading: 'defer', // 现代浏览器支持非阻塞javascript加载（'defer'），以提高页面启动性能。
       inject: true, // 将打包好的 JavaScript 文件通过 script 标签引入 放在 body 标签的底部而不是 head 标签内
       chunks: [page] // // 提取注入html的js文件
