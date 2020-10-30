@@ -11,7 +11,7 @@ module.exports = {
   // 添加项目使用到的全局变量，按需添加。
   globals: {},
   // 继承 eslint 的默认配置和 prettier 的配置。
-  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'plugin:vue/vue3-recommended'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended' /* , 'plugin:vue/vue3-recommended' */],
   // 插件 eslint-plugin- 开头的插件
   plugins: ['prettier', 'html', 'vue'],
   parser: 'vue-eslint-parser',
@@ -47,8 +47,9 @@ module.exports = {
     'no-empty': 0, // 允许有空的块语句
     'no-console': 'off', // 允许存在 console
     'no-useless-escape': 0, // 允许使用转义字符
+    'no-unreachable': 0, // 检测到无法访问的代码。
     semi: [2, 'always'], // 行尾加分号
-    quotes: [2, 'single', { avoidEscape: true /* 字符串内有单引号时，允许外层为双引号 */ }], // 使用单引号
+    quotes: [2, 'single', { avoidEscape: true, /* 字符串内有单引号时，允许外层为双引号 */ allowTemplateLiterals: true /* 允许字符串使用反引号 */ }], // 尽可能使用单引号
     indent: [2, 2, { SwitchCase: 1 }], // 缩进空格，解决 switch 缩进报错问题
     'comma-dangle': ['error', 'never'], // 不允许尾随逗号，IE8 中遇到尾随逗号时会引发错误。
     'vue/html-self-closing': 0 // 不对没有内容的元素标签自动关闭
