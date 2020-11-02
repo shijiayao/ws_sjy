@@ -9,8 +9,7 @@ const data = {
   nav_list_arr: [
     { name: '首页', url: '/' },
     { name: '笔记', url: '/note.html' },
-    { name: 'tssp', url: '/tssp.html' },
-    { name: 'test-info', url: '/test_info.html' }
+    { name: 'page-info', url: '/page_info.html' }
   ]
 };
 

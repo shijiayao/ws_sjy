@@ -1,14 +1,11 @@
 // 原生模块
 const path = require('path');
-const fs = require('fs');
-const os = require('os');
 const http = require('http');
-const https = require('https');
+const process = require('child_process');
 
 // 插件模块
 const express = require('express'); // node.js Web 应用框架
 const bodyParser = require('body-parser'); // 获取post请求的参数：`req.body`，`body-parser` 中间件；
-const multer = require('multer'); // 用于处理 multipart/form-data 类型的表单数据 node.js 中间件，它主要用于上传文件。注意: Multer 不会处理任何非 multipart/form-data 类型的表单数据。
 const mime = require('mime'); // 文件 mime 类型
 const compression = require('compression'); // 服务端 GZip 压缩
 const { createProxyMiddleware, Filter, Options, RequestHandler } = require('http-proxy-middleware'); // 代理服务
@@ -34,7 +31,7 @@ class ServerApp {
     // server 参数
     this.url = params.url || '127.0.0.1';
     this.localIP = ''; // 本机 IP
-    this.rootPath = params.rootPath || './'; // 根目录路径
+    this.rootPath = './'; // 根目录路径
     this.port = params.port; // 要开启服务的端口号
 
     // 代理服务设置
@@ -189,15 +186,9 @@ class ServerApp {
 
     // post 请求处理
     _this.app.post('/', (req, res) => {
-      let data = req.body;
+      // console.log(req.body);
 
-      for (const key in data) {
-        try {
-          data[key] = JSON.parse(data[key]);
-        } catch (error) {}
-      }
-
-      res.json({ statusCode: 200, result: true, info: 'May the force be with you!' });
+      res.json({ statusCode: 200, result: true });
     });
   }
 
@@ -233,7 +224,9 @@ class ServerApp {
 
     // HTTP
     _this.server_http = http.createServer(_this.app).listen(_this.port, () => {
-      console.log(`http | ${_this.localIP}:${_this.server_http.address().port} | http:${_this.url}:${_this.server_http.address().port}`);
+      console.log(`[${_this.server_http.address().port}] http:${_this.url}:${_this.server_http.address().port}`);
+
+      process.exec(`start http:${_this.url}:${_this.server_http.address().port}`);
     });
   }
 }
