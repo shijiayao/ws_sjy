@@ -63,7 +63,7 @@ module.exports = (env = {}, argv = {}) => {
           use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { sourceMap: true } }, { loader: 'sass-loader', options: { implementation: require('sass'), sourceMap: true } }]
         },
         { test: /\.(eot|svg|ttf|woff|woff2|otf)$/, use: 'url-loader' },
-        { test: /\.(jpg|jpeg|png|gif)$/, use: { loader: 'url-loader', options: { limit: 1024 * 1, name: `/assets/images/[hash].[ext]` } } }
+        { test: /\.(jpg|jpeg|png|gif)$/, use: { loader: 'url-loader', options: { limit: 1024 * 2, name: `/assets/images/[hash].[ext]` } } }
       ]
     },
 
