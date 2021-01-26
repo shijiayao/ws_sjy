@@ -22,7 +22,6 @@ module.exports = (env = {}, argv = {}) => {
 
     entry: {
       index: entryFN('index'),
-      page_info: entryFN('page_info'),
       note: entryFN('note'),
       ['404']: entryFN('404')
     },
@@ -36,7 +35,7 @@ module.exports = (env = {}, argv = {}) => {
     },
 
     plugins: [
-      new CleanWebpackPlugin({ verbose: true, protectWebpackAssets: false, cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, outPath)] }),
+      new CleanWebpackPlugin(),
       new CopyWebpackPlugin({
         patterns: [
           { from: 'src/vendor/flexible.js', to: `vendor/flexible.js` },
@@ -47,10 +46,10 @@ module.exports = (env = {}, argv = {}) => {
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
+        'windows.$': 'jquery',
         'windows.jQuery': 'jquery'
       }),
       HtmlWebpackPluginFN('index'),
-      HtmlWebpackPluginFN('page_info'),
       HtmlWebpackPluginFN('note'),
       HtmlWebpackPluginFN('404')
     ],
